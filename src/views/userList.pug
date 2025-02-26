@@ -1,0 +1,13 @@
+doctype html 
+html
+    include includes/head.pug
+    body 
+        include includes/header.pug
+        .container
+            h1.text-center Users
+            each user in users
+                .card.w-25: .card-body
+                    h5.card-title #{user.firstName} #{user.lastName}
+                    p.card-text.text-muted #{user.role}
+            a(href='/') Go to home
+            

@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "lib": ["es5", "es6", "dom"],
+        "target": "es5",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "baseUrl": "./src",
+        "outDir": "./dist/api",
+        "paths": {
+            "@user/*": ["api/resources/user/*"],
+            "@auth/*": ["api/resources/auth/*"],
+            "@src/*": ["./*"]
+        }
+    }
+}

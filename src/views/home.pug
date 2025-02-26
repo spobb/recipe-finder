@@ -1,0 +1,10 @@
+doctype html 
+html
+    include includes/head.pug
+    body
+        include includes/header.pug
+        .container.p-5.w-25
+            .card: .card-body
+                h5.card-title Welcome to TypeORM Test
+                p.card-text this is a basic testing environment for TypeORM.
+                a(href='/users').card-link Go to user list
