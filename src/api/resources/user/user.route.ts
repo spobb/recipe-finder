@@ -12,4 +12,7 @@ router.route('/:id')
 	.put(UserController.update)
 	.delete(UserController.delete);
 
+router.route('/profile')
+	.get(UserController.getLoggedIn);
+
 export default router;

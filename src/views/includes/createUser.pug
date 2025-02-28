@@ -1,0 +1,25 @@
+.container.w-50: .card: .card-body.p-4.col
+    h2.card-title.text-center Register
+    form(action="./users/" method='post')
+        .form-group.mb-3
+            label(for='firstName').form-label First name
+            input(type='text' placeholder='John' name='firstName').form-control#firstName
+
+        .form-group.mb-3
+            label(for='lastName').form-label Last name
+            input(type='text' placeholder='Doe' name='lastName').form-control#lastName
+
+        .form-group.mb-3
+            label(for='username').form-label Username
+            input(type='text' placeholder='johndoe' name='username').form-control#username
+
+        .form-group.mb-3
+            label(for='email').form-label E-mail
+            input(type='email' placeholder='johndoe@example.com' name='email').form-control#email
+
+        .form-group.mb-3
+            label(for='Password').form-label Password
+            input(type='password' placeholder='**********' name='password').form-control#password
+
+        .form-group
+            input(type="submit" value="Submit").btn.btn-primary.card-link

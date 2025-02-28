@@ -1,5 +1,6 @@
 import { UserRepository } from "@user/user.repository";
 import { NextFunction, Request, Response } from "express";
+import { AuthController } from "@auth/auth.controller";
 import { User } from "./user.entity";
 
 class UserController {
@@ -19,9 +20,9 @@ class UserController {
         res.send(response);
     }
 
-    // async getLoggedIn(req: Request, res: Response): Promise<User> {
-    //     return new User(req.user);
-    // }
+    async getLoggedIn(req: Request, res: Response): Promise<void> {
+        res.locals.data = AuthController.getUser;
+    }
 
     async getAll(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
@@ -35,15 +36,14 @@ class UserController {
 
     async create(req: Request, res: Response): Promise<void> {
         try {
-            const user = new User(req.body);
+
+            const user = UserRepository.create(req.body);
             const response = await UserRepository.save(user);
             res.locals.data = response;
             res.send(response);
         } catch (err) {
-            res.send(err);
             throw err;
         }
-
     }
 
     async update(req: Request, res: Response): Promise<void> {

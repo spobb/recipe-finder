@@ -1,7 +1,9 @@
 import { User } from "@user/user.entity";
 import { UserRepository } from "@user/user.repository";
 import { AppDataSource } from "@src/app.datasource";
-import { Request, Response } from "express";
+import { Response } from "express";
+import { AuthService } from "@auth/auth.service";
+import { IRequest } from "@src/api/types/interfaces";
 
 class AuthController {
     private constructor() { }
@@ -13,21 +15,27 @@ class AuthController {
         return AuthController.instance
     }
 
-    async register(req: Request, res: Response): Promise<void> {
+    async register(req: IRequest, res: Response): Promise<void> {
         const repository = AppDataSource.getRepository(User);
         const user = new User(req.body);
         await repository.insert(user);
-        res.locals.data = { user }
+
+        const token = user.generateToken();
+        res.locals.data = { user, token }
     }
 
-    async login(req: Request, res: Response): Promise<void | Error> {
-        try {
-            const user: User = await UserRepository.findOneBy({ email: req.params.email });
-            if (!user) throw new Error('No account found with this email!');
-            res.locals.data = user;
-        } catch (err) {
-            return err as Error;
-        }
+    async login(req: IRequest, res: Response): Promise<void> {
+        console.log(req.body);
+        const user: User = await UserRepository.findOneBy({ email: req.body.email });
+        if (!user) throw new Error('No account found with this email!');
+        if (!user.comparePassword(req.body.password)) throw new Error('Password does not match!');
+        AuthService.authenticateToken;
+        res.locals.data = user;
+        res.status(200).redirect('/');
+    }
+
+    async getUser(req: IRequest, res: Response): Promise<void> {
+        res.locals.data = new User(req.user);
     }
 }
 

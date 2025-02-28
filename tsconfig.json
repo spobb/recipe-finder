@@ -9,9 +9,13 @@
         "baseUrl": "./src",
         "outDir": "./dist/api",
         "paths": {
+            "@src/*": ["./*"],
+            // resources
             "@user/*": ["api/resources/user/*"],
             "@auth/*": ["api/resources/auth/*"],
-            "@src/*": ["./*"]
+            // types
+            "@interfaces": ["api/types/interfaces"],
+            "@enums": ["api/types/enums"]
         }
     }
 }
